@@ -1,0 +1,133 @@
+{{ define "content" }}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Přidání nápoje</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .btn-drink {
+            margin: 10px;
+            width: 200px;
+        }
+        .user-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .user-info img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .limit-text {
+            margin-top: 20px;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="user-info">
+            <h2>{{.Jmeno}}</h2>
+            <img src="data:image/jpeg;base64,{{.Fotka}}" alt="User Photo">
+        </div>
+        <h1 class="text-center">Přidejte svůj nápoj</h1>
+        <div class="d-flex flex-column align-items-center">
+            <form id="drinkForm" class="w-100 text-center">
+                <input type="hidden" name="type" value="pivo">
+                <button type="submit" class="btn btn-primary btn-drink">Přidat Pivo</button>
+            </form>
+            <form id="drinkForm2" class="w-100 text-center">
+                <input type="hidden" name="type" value="tvrdy">
+                <button type="submit" class="btn btn-secondary btn-drink">Přidat Tvrdý Alkohol</button>
+            </form>
+            <form id="drinkForm3" class="w-100 text-center">
+                <input type="hidden" name="type" value="nealko">
+                <button type="submit" class="btn btn-success btn-drink">Přidat Nealko</button>
+            </form>
+        </div>
+    </div>
+    <div class="limit-text">
+        Přidání nápoje je limitováno jednou za 5 minut, protože není možné to exnout rychleji :D
+    </div>
+
+    <script>
+        const wsUrl = `ws://${window.location.host}/ws`;
+        const ws = new WebSocket(wsUrl);
+
+        ws.onmessage = function(event) {
+            const message = JSON.parse(event.data);
+            if (message.type === "update") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Nápoj přidán!',
+                    text: 'Váš nápoj byl úspěšně přidán.',
+                    timer: 1000, 
+                    showConfirmButton: false 
+                });
+            } else if (message.type === "error") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Chyba!',
+                    text: message.message,
+                });
+            }
+        };
+
+        ws.onerror = function(event) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Chyba!',
+                text: 'Došlo k chybě při komunikaci se serverem.',
+            });
+        };
+
+        document.querySelectorAll('form').forEach((form) => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch('/drink-page', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message || 'Došlo k chybě.');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.type === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Chyba!',
+                            text: data.message,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Nápoj přidán!',
+                            text: 'Váš nápoj byl úspěšně přidán.',
+                            timer: 1000, 
+                            showConfirmButton: false 
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Chyba!',
+                        text: error.message,
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+{{ end }}

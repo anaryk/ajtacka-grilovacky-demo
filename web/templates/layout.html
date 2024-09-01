@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            color: #007bff;
+        }
+        .header, .footer {
+            padding: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Ajťácké grilovačky 2024</h1>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAQAAACQqPihAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfoCQEUARHr6yxEAAAEoUlEQVRYw63YeWzURRQH8M+2lJYWGoFSpLHVGDTiBQpFBK8o4B1NVBKNJyYSiWc0WjUajxglgjcQb0OixCiKZ4Im1XqCxojgQZSgWApFKGyhd7u7/uHy6/Xbdhf2O//MzHsz35k3773fzI/B8bRVikIlp9tkRhozyElDZ49JykMlTUaali2aXxUpC9Y/z9BAUmuHI7JF0yKiIFk/2eOODSSd2gPJAdOMEdeYrNfINT2QFCm2K1s0J9lpc7L+lx2OCiQTlFiXHZoKM31la7LVrsXwQHaxqG+zQzPdOCvEk61Cw0WT9YPNVG1jdmhO1GBt0BqvxG/J+mHG+SpYwAHSHGxX4ABcqDUw02g56tIhSYcmJjfQGuMcNTYEEoZki2azUqWBmcp9oSvZqtdpfLZoVhsR5K1SuYFr87dNZsnPDs0aK3Qm6wkRkUAS9YotctPbz+AoCE5giqibe0iGpJdqMkWJ9VbKy3xgOsmmGzu9qbNHhk4bkT7t4YEZYhrFe7QhoVCB3YPM2aZpIJpR5rtQcbK/3e1+9roj+8R5ot/S+qLRB5b2Xkx3eA31qGvV+DlYU702q9VLZGihQ92vzO2Bf/bCZLstTC8KBkG+pzQ4oWdXtwuUyVetPQs07aoNMy6cplaLC4yQk3HZN9O+UuwCzWrDz+YXr7nJxIzjOmKFN81zdtJVYsqd4Bm/h9N0ecjfqlRaHyTHdEgiRosoVSEuYYjj1LnVst5z9HXOpWaZbfugTtsTrWLJtJMwzipN3pOj1ofqUw250y7HZ2S03pikwS51tmq10sh93X2TzU+GqjwAmqlyXaNSpYfNNjkVzTqbXLTf0VPgYg2ajFHiIPHwAP0fD9hr5n7SnKdZTFRUo1avdl+1+h/14VbZbE56t8leKLVCmWe1iaBOjT0Dqc/V7o6MSYZZotXV6Q8ocItzQ3eaGsWe1GFh5p+8+RY7Mk3d472rw/NGZGwD8+y20b2OHtDvCkz0iFoNqhSmVkttmBynWGCaf621Vp3WPt+diEKHONFEo32jyteZ72QfXrDNYqvFdWjsVzrEfGuxeksGm2igYx7pcxtdaoZPvGB5n4tslytd7xxrrHSIs4J3QsaoTN7KbrDXKSHyMzSZiyrR7rSS6gRS4zTDJJQ73RZ/hMg32OpUfC/PlP3byQQvaZDQ5B/N3gg1bq63rDfKWH9YllGUBeb61Q7PudxVXha1zoRQvfkaTcNyG4JXQyjC3iejPKHQZbaYodMjPvCSRRaI9VlxTI58U632kYrMs/ocra411e+atfjB0e4S12xvv9IsYbkc+QPvJXw3021X43GF5iiy2I1eVuULb/dzmLhrTDbWNlOUWpb6HRputD26HG6tj+W51Xht2mywPEQ3zxITbHOe832W+iUaRrPNbIW+d4W7FZlkgRLFzrSwnzcllBvmJNXWuM4xmdFUu8mlFqlwn7iVXnWPfGNdEqKb0OFkuX7UYppPM6H50vvustM8ZWK2u8pcL3os1PIJDzrfYRrsSfEzbABU+FCLGos85TstlilJqTtL1Kfe0ez6TGkY435/iuuy3m3JN0848txjt1bPDaT1H97/X8HYvdu3AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI0LTA5LTAxVDIwOjAwOjQ4KzAwOjAwdt19jgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNC0wOS0wMVQyMDowMDo0OCswMDowMAeAxTIAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC" alt="Grill Logo">
+    </div>
+    <div class="container">
+        {{ template "content" . }}
+    </div>
+</body>
+</html>
