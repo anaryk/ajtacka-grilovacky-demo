@@ -47,17 +47,24 @@ func (db *DB) AddDrink(alkoholikID int, drinkType string) error {
 }
 
 func (db *DB) GetLastDrinkTime(alkoholikID int) (time.Time, error) {
-	var lastDrink sql.NullTime
+	var lastDrink sql.NullString
 	err := db.QueryRow("SELECT last_drink FROM alkoholik WHERE id = ?", alkoholikID).Scan(&lastDrink)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return time.Time{}, nil
+		}
 		return time.Time{}, err
 	}
 
-	if lastDrink.Valid {
-		return lastDrink.Time, nil
+	if !lastDrink.Valid {
+		return time.Time{}, nil
 	}
 
-	return time.Time{}, nil
+	lastDrinkTime, err := time.Parse("2006-01-02 15:04:05", lastDrink.String)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return lastDrinkTime, nil
 }
 
 func (db *DB) GetAllAlkoholici() ([]Alkoholik, error) {

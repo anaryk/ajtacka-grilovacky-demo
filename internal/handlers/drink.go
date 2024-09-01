@@ -37,6 +37,7 @@ func DrinkHandler(db *models.DB, hub *websocket.Hub, logger *zerolog.Logger) htt
 			alkoholik, err := db.GetAlkoholikByID(alkoholikID)
 			if err != nil {
 				logger.Error().Err(err).Msg("Failed to load user data. It seems user not exist. Redirection to /alkoholik to pass registration process")
+				clearCookie(w)
 				http.Redirect(w, r, "/alkoholik", http.StatusSeeOther)
 				return
 			}
