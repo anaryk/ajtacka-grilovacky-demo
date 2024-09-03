@@ -84,11 +84,7 @@
         };
 
         ws.onerror = function(event) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Chyba!',
-                text: 'Došlo k chybě při komunikaci se serverem.',
-            });
+            location.reload();
         };
 
         document.querySelectorAll('form').forEach((form) => {
