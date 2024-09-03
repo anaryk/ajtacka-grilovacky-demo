@@ -112,7 +112,10 @@
         };
 
         ws.onclose = function(event) {
-            console.log("WebSocket connection closed:", event);
+            console.log('Socket is died. Reconnect will be attempted in 0,5 second.', e.reason);
+            setTimeout(function() {
+                connect();
+            }, 500);
         };
 
         function updateStatsTable(alkoholici) {
