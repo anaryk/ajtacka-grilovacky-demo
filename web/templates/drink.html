@@ -84,7 +84,10 @@
         };
 
         ws.onerror = function(event) {
-            location.reload();
+            console.log('Socket is died. Reconnect will be attempted in 0,5 second.', e.reason);
+            setTimeout(function() {
+                connect();
+            }, 500);
         };
 
         document.querySelectorAll('form').forEach((form) => {
