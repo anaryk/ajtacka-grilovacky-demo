@@ -25,7 +25,10 @@ func main() {
 		log.Fatal().Msg("Missing database configuration")
 	}
 
-	db, err := models.InitDB(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName))
+	dataSourceString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
+	log.Info().Str("dataSourceString", dataSourceString).Msg("Connecting to the database")
+
+	db, err := models.InitDB(dataSourceString)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Database connection failed")
 	}
