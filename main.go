@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -14,7 +15,17 @@ func main() {
 	log := zerolog.New(os.Stdout).With().Timestamp().Logger()
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 
-	db, err := models.InitDB("root:Start123@tcp(10.181.21.90:55000)/alkoholapp")
+	dbName := os.Getenv("DB_NAME")
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+
+	if dbName == "" || dbUser == "" || dbPass == "" || dbHost == "" || dbPort == "" {
+		log.Fatal().Msg("Missing database configuration")
+	}
+
+	db, err := models.InitDB(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName))
 	if err != nil {
 		log.Fatal().Err(err).Msg("Database connection failed")
 	}
