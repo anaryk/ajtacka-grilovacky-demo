@@ -10,7 +10,7 @@ type DB struct {
 	*sql.DB
 }
 
-func InitDB(dataSourceName string) (*DB, error) {
+func InitDB(dataSourceName string, dbName string) (*DB, error) {
 	db, err := sql.Open("mysql", dataSourceName)
 	if err != nil {
 		return nil, err
@@ -19,12 +19,12 @@ func InitDB(dataSourceName string) (*DB, error) {
 		return nil, err
 	}
 
-	_, err = db.Exec(`CREATE DATABASE IF NOT EXISTS alkoholapp`)
+	_, err = db.Exec(`CREATE DATABASE IF NOT EXISTS` + dbName)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = db.Exec(`USE alkoholapp`)
+	_, err = db.Exec(`USE ` + dbName)
 	if err != nil {
 		return nil, err
 	}

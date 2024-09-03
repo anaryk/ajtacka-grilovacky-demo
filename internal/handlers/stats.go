@@ -23,7 +23,7 @@ func StatsHandler(db *models.DB, hub *websocket.Hub, logger *zerolog.Logger) htt
 			return
 		}
 
-		url := "http://" + r.Host + "/alkoholik"
+		url := isHTTPS(r) + r.Host + "/alkoholik"
 		qr, err := qrcode.New(url, qrcode.Medium)
 		if err != nil {
 			logger.Error().Err(err).Msg("Failed to generate QR code")
@@ -57,4 +57,13 @@ func StatsHandler(db *models.DB, hub *websocket.Hub, logger *zerolog.Logger) htt
 			return
 		}
 	}
+}
+
+func isHTTPS(r *http.Request) string {
+	if r.TLS != nil {
+		return "https://"
+	} else {
+		return "http://"
+	}
+
 }
