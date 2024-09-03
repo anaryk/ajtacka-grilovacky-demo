@@ -83,7 +83,7 @@ func DrinkHandler(db *models.DB, hub *websocket.Hub, logger *zerolog.Logger) htt
 
 			if time.Since(lastAdded) < 5*time.Minute {
 				logger.Info().Msg("Attempt to add drink too soon")
-				jsonResponse(w, http.StatusTooManyRequests, "error", "You can add a drink only every 5 minutes")
+				jsonResponse(w, http.StatusTooManyRequests, "error", "Je možné přidat nápoj pouze jednou za 5 minut")
 				return
 			}
 
