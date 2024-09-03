@@ -3,21 +3,22 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Přidání nápoje</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .btn-drink {
             margin: 10px;
-            width: 200px;
+            width: 100%; /* Full width buttons for better touch target on mobile */
         }
         .user-info {
             margin-bottom: 20px;
             text-align: center;
         }
         .user-info img {
-            width: 100px;
-            height: 100px;
+            width: 80px;  /* Slightly smaller for mobile screens */
+            height: 80px;
             object-fit: cover;
             border-radius: 50%;
         }
@@ -25,11 +26,15 @@
             margin-top: 20px;
             font-style: italic;
             text-align: center;
+            padding: 0 10px;  /* Padding to ensure readability on small screens */
+        }
+        h1 {
+            font-size: 1.5rem; /* Slightly smaller font for the main heading */
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-3"> <!-- Reduced margin for mobile view -->
         <div class="user-info">
             <h2>{{.Jmeno}}</h2>
             <img src="data:image/jpeg;base64,{{.Fotka}}" alt="User Photo">
